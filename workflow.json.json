@@ -1,0 +1,149 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -528,
+        -64
+      ],
+      "id": "f20ebd09-3f25-4e43-9341-1adc62e83d84",
+      "name": "Manual Trigger"
+    },
+    {
+      "parameters": {
+        "jsCode": "// AI Vision Mock\nreturn [\n  {\n    json: {\n      detected_object: \"sneakers albi sport\",\n      style: \"modern, urban\",\n      target_audience: \"tineri activi\"\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -336,
+        -64
+      ],
+      "id": "9e24ee00-9c68-4c5e-8996-6baa4a15ef94",
+      "name": "AI Vision Mock"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate Script\nconst persona = items[0]?.json || {};\nconst vision = persona.from_vision || {};\nconst script = `Salut! Sunt ${persona.persona_name}, am ${persona.persona_age} și caut ${vision.detected_object}. Acest produs e perfect pentru un stil ${vision.style}.`;\nreturn [{ json: { short_script: script, persona, vision } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        48,
+        -64
+      ],
+      "id": "273d86b1-980e-49d8-80a9-1907ca4d1510",
+      "name": "Generate Script"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate Persona\nconst vision = items[0]?.json || {};\nconst detected = vision.detected_object || \"produs\";\nreturn [\n  {\n    json: {\n      persona_name: \"andrei\",\n      persona_age: \"20-30\",\n      persona_interest: `interesat de ${detected} și lifestyle activ`,\n      from_vision: vision\n    }\n  }\n];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -144,
+        -64
+      ],
+      "id": "75b4d77f-a970-4d54-89db-f5196e303849",
+      "name": "Generate Persona"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Generate Video URL\nconst data = items[0]?.json || {};\n// simulăm că un serviciu a creat un video și ne dă un url\nreturn [{ json: { video_url: \"https://example.com/videos/ugc-12345.mp4\", meta: data } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        -64
+      ],
+      "id": "72d68450-0f34-4004-a8bb-356d5b01cd9f",
+      "name": "Generate Video URL"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Output Result\nconst video = items[0]?.json || {};\n// dacă vrei să primești totul la final, poți adăuga manual câmpuri sau să tragi date din nodurile precedente\nreturn [{ json: { success: true, video_url: video.video_url, created_at: new Date().toISOString(), details: video.meta } }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        448,
+        -64
+      ],
+      "id": "626333f4-9d38-4427-85ed-a013abb5e063",
+      "name": "Output Result"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Vision Mock",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Vision Mock": {
+      "main": [
+        [
+          {
+            "node": "Generate Persona",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Persona": {
+      "main": [
+        [
+          {
+            "node": "Generate Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Script": {
+      "main": [
+        [
+          {
+            "node": "Generate Video URL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Video URL": {
+      "main": [
+        [
+          {
+            "node": "Output Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "dccde489-b10a-44b8-8a30-f26d49cbc5fb",
+  "meta": {
+    "instanceId": "64f8633d9a2f870a605ca0b34f98d1e5cbe8a288c0b9bb8c1099d43022781874"
+  },
+  "id": "9gxJK0BdxPAXsiXj",
+  "tags": []
+}
