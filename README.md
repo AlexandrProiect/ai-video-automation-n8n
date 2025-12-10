@@ -51,7 +51,7 @@ Agregă toate datele finale într-un singur JSON pentru ieșire.
 Output: success, video_url, created_at, details.
 
 Structura workflow-ului
-```txt
+```txt.
 [Manual Trigger]
        ↓
 [AI Vision Mock]
