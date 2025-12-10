@@ -53,14 +53,14 @@ Output: success, video_url, created_at, details.
 Structura workflow-ului
 ```txt
 [Manual Trigger]
-↓
+       ↓
 [AI Vision Mock]
-↓
+       ↓
 [Generate Persona]
-↓
+       ↓
 [Generate Script]
-↓
+       ↓
 [Generate Video URL]
-↓
+       ↓
 [Output Result]
 ```
