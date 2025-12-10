@@ -1,38 +1,65 @@
-# Anagram de cautare
+# Workflow UGC Mock - n8n
 
-Acest program Java citește o listă de cuvinte dintr-un fișier și le grupează în anagrame.
+Workflow-ul generează un videoclip mock care simulează un clip UGC promoțional. În exemplul nostru: 
 
-## Cum să compilezi și să rulezi
-
-1.Deschide Visual Studio Code și creează un folder nou (ex: AnagramFinder).
-
-2.Creează un fișier numit Main.java și inserează codul sursă.
-
-3.Creează un fișier sample.txt în același folder și adaugă câteva cuvinte, câte unul pe linie.
-
-4.Instalează extensia Java Extension Pack dacă nu o ai deja.
-
-5.Apasă Run sau folosește combinația Ctrl + F5 pentru a rula programul.
+- Produsul promovat este un **sneakers alb sport**.  
+- Prezentatorul este un tânăr fictiv, **Andrei**, 20–30 ani, activ și interesat de produs.  
+- Scriptul este generat automat pe baza obiectului și a persona, de exemplu: „Salut! Sunt Andrei, am 20–30 de ani și caut sneakers albi sport. Acești pantofi sunt perfecți pentru un stil modern și activ.”  
+- Workflow-ul returnează un **URL mock de video** și un JSON cu toate datele, simulând logica prezentată în videoclipurile originale.  
 
 
+---
 
-## Exemplu
+## Noduri folosite
 
-**sample.txt**
-```
-act
-cat
-tree
-race
-care
-acre
-bee
-```
+1. **Manual Trigger**  
+   - Punctul de start al workflow-ului. Permite rularea manuală pentru test.
 
-**Output**
-```
-act cat
-race care acre
-tree
-bee
-```
+2. **Function (AI Vision Mock)**  
+   - Simulează un API de recunoaștere a obiectelor și stilului.  
+   - Exemplu de output:
+
+```json
+{
+  "detected_object": "sneakers albi sport",
+  "style": "modern, urban",
+  "target_audience": "tineri activi"
+}
+Function (Generate Persona)
+
+Creează un persona fictiv folosind datele de la AI Vision Mock.
+
+Output: nume, vârstă, interese și referință la datele vizuale.
+
+Function (Generate Script)
+
+Generează un scurt script text bazat pe persona și obiectul detectat.
+
+Output: short_script + referințe la persona și vision.
+
+Function (Generate Video URL)
+
+Mock pentru generarea unui URL de videoclip.
+
+Output: link video fictiv + metadatele primite.
+
+Function (Output Result)
+
+Agregă toate datele finale într-un singur JSON pentru ieșire.
+
+Output: success, video_url, created_at, details.
+
+Structura workflow-ului
+csharp
+Копировать код
+[Manual Trigger]
+      ↓
+[AI Vision Mock]
+      ↓
+[Generate Persona]
+      ↓
+[Generate Script]
+      ↓
+[Generate Video URL]
+      ↓
+[Output Result]
