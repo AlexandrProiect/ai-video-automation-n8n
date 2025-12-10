@@ -25,7 +25,7 @@ Workflow-ul generează un videoclip mock care simulează un clip UGC promoționa
   "style": "modern, urban",
   "target_audience": "tineri activi"
 }
-```txt
+
 Function (Generate Persona)
 
 Creează un persona fictiv folosind datele de la AI Vision Mock.
@@ -51,6 +51,7 @@ Agregă toate datele finale într-un singur JSON pentru ieșire.
 Output: success, video_url, created_at, details.
 
 Structura workflow-ului
+```txt
 
 [Manual Trigger]
       ↓
